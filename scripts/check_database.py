@@ -1,74 +1,45 @@
-import chromadb
-from sentence_transformers import SentenceTransformer
+# scripts/check_database.py
+import sys
 from pathlib import Path
 
-# --- Configurações ---
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-PERSIST_DIR = str(PROJECT_ROOT / "db" / "chroma")
-MODEL_NAME = "all-MiniLM-L6-v2"
-COLLECTION_NAME = "laws"
-QUERY_TEXT = "qual o direito do consumidor"
+# Adiciona o diretório 'src' ao path para permitir importações diretas
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
+from src.data_processing.vector_store import search_knowledge_base
+from src import config
+
+# --- Texto de Exemplo para a Busca ---
+QUERY_TEXT = "qual o direito do consumidor em caso de produto com defeito"
 
 def main():
     """
-    Script para verificar a base de dados ChromaDB e testar a busca semântica.
+    Verifica a base de dados e testa a função de busca semântica.
     """
     print("--- Iniciando verificação da base de conhecimento ---")
 
-    # 1. Conectar ao banco de dados ChromaDB
-    try:
-        client = chromadb.PersistentClient(path=PERSIST_DIR)
-        collection = client.get_collection(name=COLLECTION_NAME)
-        print(f"✅ Conectado à coleção '{COLLECTION_NAME}' com sucesso.")
-    except Exception as e:
-        print(f"❌ Erro ao conectar ao ChromaDB: {e}")
-        print("Certifique-se de que o script 'build_database.py' foi executado primeiro.")
-        return
-
-    # 2. Verificar a quantidade de itens na coleção
-    count = collection.count()
-    print(f"📊 A coleção contém {count} documentos.")
-
-    if count == 0:
-        print("⚠️ A base de dados está vazia. Execute 'build_database.py' para populá-la.")
-        return
-
-    # 3. Realizar uma busca de teste
+    # 1. Realizar uma busca de teste
     print(f"\n🔎 Realizando busca de teste com a frase: '{QUERY_TEXT}'")
     
-    # Carregar o modelo de embedding
-    try:
-        model = SentenceTransformer(MODEL_NAME)
-        print("✅ Modelo de embedding carregado.")
-    except Exception as e:
-        print(f"❌ Erro ao carregar o modelo '{MODEL_NAME}': {e}")
-        return
+    results = search_knowledge_base(QUERY_TEXT, top_k=3)
 
-    # Converter a query em um embedding
-    query_embedding = model.encode([QUERY_TEXT])[0].tolist()
-
-    # Realizar a busca na coleção
-    results = collection.query(
-        query_embeddings=[query_embedding],
-        n_results=3,  # Pedir os 3 resultados mais relevantes
-        include=["documents", "metadatas", "distances"]
-    )
-
-    # 4. Exibir os resultados
-    if not results or not results.get("documents"):
+    # 2. Exibir os resultados
+    if not results:
         print("❌ A busca não retornou resultados.")
+        print("   Certifique-se de que o script 'build_database.py' foi executado.")
         return
 
     print("\n--- Resultados da Busca ---")
-    for i, doc in enumerate(results["documents"][0]):
-        distance = results["distances"][0][i]
-        metadata = results["metadatas"][0][i]
+    for i, result in enumerate(results):
+        doc = result.get("document", "N/A")
+        meta = result.get("metadata", {})
+        source = meta.get("source", "N/A")
         
-        print(f"\nResultado {i+1} (Distância: {distance:.4f}):")
-        print(f"  Fonte: {metadata.get('source', 'N/A')}")
-        print(f"  Trecho: \"{doc}...\"") # Mostra o início do trecho
+        print(f"\nResultado {i+1}:")
+        print(f"  Fonte: {source}")
+        # Mostra os primeiros 150 caracteres do trecho
+        print(f"  Trecho: \"{doc[:150]}...\"") 
 
-    print("\n--- Verificação concluída ---")
+    print("\n✅ Verificação concluída com sucesso!")
 
 if __name__ == "__main__":
     main()
