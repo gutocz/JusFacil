@@ -34,7 +34,7 @@ O JusFácil é um chatbot jurídico que utiliza inteligência artificial para re
 
 1. **Clone o repositório**:
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/gutocz/JusFacil.git
 cd JusFacil
 ```
 
@@ -47,8 +47,8 @@ pip install -r requirements.txt
 Crie um arquivo `.env` na raiz do projeto:
 ```env
 GOOGLE_API_KEY=sua_chave_da_api_do_google_aqui
-COLLECTION_NAME=laws
-EMBEDDING_MODEL=paraphrase-multilingual-mpnet-base-v2
+COLLECTION_NAME=nome_da_coleção (opcional)
+EMBEDDING_MODEL=seu modelo para embedding (opcional)
 ```
 
 4. **Gere a base de dados vetorial** (se ainda não foi feito):
@@ -85,7 +85,6 @@ Abra seu navegador e acesse: `http://localhost:5000`
 ```
 JusFacil/
 ├── app.py                 # Servidor Flask principal
-├── main.py               # (vazio - pode ser removido)
 ├── requirements.txt      # Dependências Python
 ├── README.md            # Este arquivo
 ├── .env                 # Variáveis de ambiente (criar)
