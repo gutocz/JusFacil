@@ -1,0 +1,15 @@
+# =================================================================
+# ==                    DEPENDÊNCIAS DO PROJETO JUSFÁCIL           ==
+# =================================================================
+# Para instalar todas as dependências, execute no terminal:
+# pip install -r requirements.txt
+# -----------------------------------------------------------------
+
+pypdf
+sentence-transformers
+chromadb
+langchain-text-splitters
+
+# --- Camada de Lógica e IA (Dev 2) ---
+google-generativeai
+python-dotenv
