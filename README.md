@@ -2,7 +2,7 @@
 
 O JusFácil é um chatbot jurídico que utiliza inteligência artificial para responder dúvidas sobre direitos trabalhistas (CLT) e do consumidor (CDC) de forma simples e acessível.
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
 - **Chat Inteligente**: Interface web moderna para interação com o assistente jurídico
 - **RAG Pipeline**: Busca semântica em documentos jurídicos (CLT e CDC)
@@ -10,7 +10,7 @@ O JusFácil é um chatbot jurídico que utiliza inteligência artificial para re
 - **Fontes Transparentes**: Exibição dos trechos das leis utilizados nas respostas
 - **Design Responsivo**: Interface adaptável para desktop e mobile
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Backend
 - **Python 3.8+**
@@ -24,13 +24,13 @@ O JusFácil é um chatbot jurídico que utiliza inteligência artificial para re
 - **Font Awesome**: Ícones
 - **Google Fonts**: Tipografia (Inter)
 
-## 📋 Pré-requisitos
+## Pré-requisitos
 
 1. **Python 3.8 ou superior**
 2. **Chave da API do Google Gemini**
 3. **Base de dados vetorial** (gerada pelos scripts de processamento)
 
-## 🔧 Instalação
+## Instalação
 
 1. **Clone o repositório**:
 ```bash
@@ -56,7 +56,7 @@ EMBEDDING_MODEL=seu modelo para embedding (opcional)
 python scripts/build_database.py
 ```
 
-## 🚀 Como Executar
+## Como Executar
 
 1. **Inicie o servidor Flask**:
 ```bash
@@ -66,7 +66,7 @@ python app.py
 2. **Acesse a aplicação**:
 Abra seu navegador e acesse: `http://localhost:5000`
 
-## 📱 Como Usar
+## Como Usar
 
 1. **Faça sua pergunta**: Digite uma pergunta jurídica na caixa de texto
 2. **Aguarde a resposta**: O sistema buscará informações relevantes e gerará uma resposta simplificada
@@ -80,7 +80,7 @@ Abra seu navegador e acesse: `http://localhost:5000`
 - "Posso trabalhar horas extras sem receber adicional?"
 - "Qual o prazo para devolver um produto comprado online?"
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 JusFacil/
@@ -105,17 +105,17 @@ JusFacil/
     └── images/          # Imagens (se houver)
 ```
 
-## 🔍 Scripts Disponíveis
+## Scripts Disponíveis
 
 - `scripts/build_database.py`: Processa os PDFs e cria a base vetorial
 - `scripts/check_database.py`: Verifica se a base de dados está funcionando
 - `scripts/check_rag_pipeline.py`: Testa o pipeline RAG completo
 
-## ⚠️ Aviso Legal
+## Aviso Legal
 
 **IMPORTANTE**: Este sistema fornece informações jurídicas simplificadas baseadas em CLT e CDC, mas **NÃO substitui a consulta a um advogado qualificado**. Sempre consulte um profissional para questões jurídicas específicas.
 
-## 🤝 Contribuição
+## Contribuição
 
 Contribuições são bem-vindas! Para contribuir:
 
@@ -124,14 +124,3 @@ Contribuições são bem-vindas! Para contribuir:
 3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`)
 4. Push para a branch (`git push origin feature/nova-feature`)
 5. Abra um Pull Request
-
-## 🆘 Suporte
-
-Se encontrar problemas:
-
-1. Verifique se todas as dependências estão instaladas
-2. Confirme se a chave da API do Google está configurada
-3. Verifique se a base de dados vetorial foi gerada corretamente
-4. Consulte os logs do servidor para mensagens de erro
-
-Para dúvidas ou suporte, abra uma issue no repositório.
