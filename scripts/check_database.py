@@ -1,8 +1,6 @@
-# scripts/check_database.py
 import sys
 from pathlib import Path
 
-# Adiciona o diretório 'src' ao path para permitir importações diretas
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from src.data_processing.vector_store import search_knowledge_base
@@ -17,15 +15,13 @@ def main():
     """
     print("--- Iniciando verificação da base de conhecimento ---")
 
-    # 1. Realizar uma busca de teste
-    print(f"\n🔎 Realizando busca de teste com a frase: '{QUERY_TEXT}'")
+    print(f"\n Realizando busca de teste com a frase: '{QUERY_TEXT}'")
     
     results = search_knowledge_base(QUERY_TEXT, top_k=3)
 
-    # 2. Exibir os resultados
     if not results:
-        print("❌ A busca não retornou resultados.")
-        print("   Certifique-se de que o script 'build_database.py' foi executado.")
+        print("A busca não retornou resultados.")
+        print("Certifique-se de que o script 'build_database.py' foi executado.")
         return
 
     print("\n--- Resultados da Busca ---")
@@ -36,7 +32,6 @@ def main():
         
         print(f"\nResultado {i+1}:")
         print(f"  Fonte: {source}")
-        # Mostra os primeiros 150 caracteres do trecho
         print(f"  Trecho: \"{doc[:150]}...\"") 
 
     print("\n✅ Verificação concluída com sucesso!")

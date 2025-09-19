@@ -1,4 +1,3 @@
-# scripts/build_database.py
 import sys
 from pathlib import Path
 from sentence_transformers import SentenceTransformer
@@ -17,7 +16,6 @@ def main():
 
     client = chromadb.PersistentClient(path=config.PERSIST_DIRECTORY)
     
-    # Apaga a coleção antiga para garantir que estamos reconstruindo com dados limpos
     print(f"[*] Tentando apagar a coleção antiga '{config.COLLECTION_NAME}' para uma reconstrução limpa...")
     try:
         client.delete_collection(name=config.COLLECTION_NAME)

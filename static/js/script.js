@@ -1,4 +1,3 @@
-// Elementos DOM
 const chatMessages = document.getElementById('chatMessages');
 const messageInput = document.getElementById('messageInput');
 const sendButton = document.getElementById('sendButton');
@@ -8,24 +7,20 @@ const modalBody = document.getElementById('modalBody');
 const closeModal = document.getElementById('closeModal');
 const charCount = document.querySelector('.char-count');
 
-// Estado do chat
 let isWaitingForResponse = false;
 
-// Inicialização
 document.addEventListener('DOMContentLoaded', function() {
     initializeChat();
     setupEventListeners();
 });
 
 function initializeChat() {
-    // Auto-resize do textarea
     messageInput.addEventListener('input', function() {
         autoResizeTextarea(this);
         updateCharCount();
         updateSendButton();
     });
     
-    // Enviar mensagem com Enter (sem Shift)
     messageInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
@@ -35,7 +30,6 @@ function initializeChat() {
         }
     });
     
-    // Click nos exemplos de perguntas
     document.querySelectorAll('.example-questions li').forEach(item => {
         item.addEventListener('click', function() {
             messageInput.value = this.textContent.trim();
@@ -47,20 +41,16 @@ function initializeChat() {
 }
 
 function setupEventListeners() {
-    // Botão de enviar
     sendButton.addEventListener('click', sendMessage);
     
-    // Fechar modal
     closeModal.addEventListener('click', hideSourceModal);
     
-    // Fechar modal clicando fora
     sourceModal.addEventListener('click', function(e) {
         if (e.target === sourceModal) {
             hideSourceModal();
         }
     });
     
-    // Fechar modal com ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && sourceModal.classList.contains('show')) {
             hideSourceModal();
@@ -95,21 +85,17 @@ async function sendMessage() {
     const message = messageInput.value.trim();
     if (!message || isWaitingForResponse) return;
     
-    // Adicionar mensagem do usuário
     addMessage(message, 'user');
     
-    // Limpar input
     messageInput.value = '';
     autoResizeTextarea(messageInput);
     updateCharCount();
     updateSendButton();
     
-    // Mostrar loading
     showLoading();
     isWaitingForResponse = true;
     
     try {
-        // Fazer requisição para a API
         const response = await fetch('/api/chat', {
             method: 'POST',
             headers: {
@@ -121,10 +107,8 @@ async function sendMessage() {
         const data = await response.json();
         
         if (response.ok) {
-            // Adicionar resposta do assistente
             addMessage(data.answer, 'assistant', data.sources);
         } else {
-            // Mostrar erro
             addMessage(data.answer || 'Erro ao processar sua pergunta. Tente novamente.', 'assistant');
         }
     } catch (error) {
@@ -145,7 +129,6 @@ function addMessage(text, sender, sources = null) {
     const messageContent = document.createElement('div');
     messageContent.className = 'message-content';
     
-    // Header da mensagem
     const messageHeader = document.createElement('div');
     messageHeader.className = 'message-header';
     
@@ -155,7 +138,6 @@ function addMessage(text, sender, sources = null) {
         messageHeader.innerHTML = '<i class="fas fa-robot"></i> JusFácil';
     }
     
-    // Texto da mensagem
     const messageText = document.createElement('div');
     messageText.className = 'message-text';
     messageText.textContent = text;
@@ -163,7 +145,6 @@ function addMessage(text, sender, sources = null) {
     messageContent.appendChild(messageHeader);
     messageContent.appendChild(messageText);
     
-    // Adicionar botão de fontes se existirem
     if (sources && sources.length > 0) {
         const sourcesDiv = document.createElement('div');
         sourcesDiv.className = 'message-sources';
@@ -179,7 +160,6 @@ function addMessage(text, sender, sources = null) {
     
     messageDiv.appendChild(messageContent);
     
-    // Remover mensagem de boas-vindas se existir
     const welcomeMessage = chatMessages.querySelector('.welcome-message');
     if (welcomeMessage) {
         welcomeMessage.remove();
@@ -187,7 +167,6 @@ function addMessage(text, sender, sources = null) {
     
     chatMessages.appendChild(messageDiv);
     
-    // Scroll para a última mensagem
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
@@ -226,7 +205,6 @@ function hideLoading() {
     loadingOverlay.classList.remove('show');
 }
 
-// Função para testar a conexão com a API
 async function testConnection() {
     try {
         const response = await fetch('/api/health');
@@ -237,5 +215,4 @@ async function testConnection() {
     }
 }
 
-// Testar conexão ao carregar a página
 testConnection();
