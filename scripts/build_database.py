@@ -6,7 +6,6 @@ import chromadb
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-# A nova função faz o carregamento e a divisão de uma vez
 from src.data_processing.loader import load_and_split_pdf
 from src import config
 
@@ -42,7 +41,6 @@ def main():
 
     for file in files_found:
         print(f"\n--- Processando {file.name} ---")
-        # Usa a nova função que já carrega, limpa e divide o texto
         chunks = load_and_split_pdf(file)
 
         if not chunks:

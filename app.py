@@ -1,20 +1,15 @@
-# app.py
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
-
-# Carregar variáveis de ambiente
 load_dotenv()
-
-# Adicionar o diretório raiz ao path para importar os módulos
 sys.path.append(str(Path(__file__).resolve().parent))
 
 from src.core.rag_pipeline import get_final_answer
 
 app = Flask(__name__)
-CORS(app)  # Permitir requisições de diferentes origens
+CORS(app)
 
 @app.route('/')
 def index():

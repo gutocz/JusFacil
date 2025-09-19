@@ -8,7 +8,7 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 from src.data_processing.vector_store import search_knowledge_base
 from src import config
 
-# --- Texto de Exemplo para a Busca ---
+# Texto de exemplo
 QUERY_TEXT = "qual o direito do consumidor em caso de produto com defeito"
 
 def main():
