@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JusFácil - Assistente Jurídico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-balance-scale"></i>
+                    <h1>JusFácil</h1>
+                </div>
+                <p class="subtitle">Seu assistente jurídico inteligente</p>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <div class="welcome-content">
+                        <i class="fas fa-gavel"></i>
+                        <h3>Bem-vindo ao JusFácil!</h3>
+                        <p>Faça suas perguntas sobre direitos trabalhistas e do consumidor. Eu vou te ajudar a entender as leis de forma simples e clara.</p>
+                        <div class="example-questions">
+                            <h4>Exemplos de perguntas:</h4>
+                            <ul>
+                                <li>Quais são meus direitos quando sou demitido?</li>
+                                <li>O que fazer se o produto que comprei está com defeito?</li>
+                                <li>Posso trabalhar horas extras sem receber?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Digite sua pergunta jurídica aqui..." 
+                        rows="1"
+                        maxlength="1000"
+                    ></textarea>
+                    <button id="sendButton" class="send-button" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span class="char-count">0/1000</span>
+                    <span class="disclaimer">As respostas são baseadas em CLT e CDC e não substituem consulta jurídica!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>Analisando sua pergunta...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Source Modal -->
+    <div class="modal" id="sourceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Fontes Utilizadas</h3>
+                <button class="close-button" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Sources will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
