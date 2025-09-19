@@ -47,7 +47,7 @@ def _clean_text(text: str) -> str:
     text = re.sub(r" +", " ", text)
     # Tenta juntar palavras que foram quebradas com um hífen no final da linha
     text = re.sub(r"-\n", "", text)
-    # Remove quebras de linha excessivas, mantendo no máximo duas (parágrafos)
+    # Remove quebras de linha excessivas, mantendo no máximo duas linhas (parágrafos)
     text = re.sub(r"\n{3,}", "\n\n", text)
     
     return text.strip()

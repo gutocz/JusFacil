@@ -13,3 +13,7 @@ langchain-text-splitters
 # --- Camada de Lógica e IA (Dev 2) ---
 google-generativeai
 python-dotenv
+
+# --- Frontend Web (Flask) ---
+flask
+flask-cors

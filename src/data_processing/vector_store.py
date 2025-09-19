@@ -4,7 +4,6 @@ import chromadb
 from sentence_transformers import SentenceTransformer
 from src import config  # Importa as configurações centralizadas
 
-# --- Inicialização ---
 # Carrega o cliente e o modelo uma única vez para maior eficiência
 try:
     _client = chromadb.PersistentClient(path=config.PERSIST_DIRECTORY)
@@ -15,7 +14,6 @@ except Exception as e:
     _collection = None
     _model = None
 
-# --- Interface Pública ---
 def search_knowledge_base(query: str, top_k: int = 5) -> List[Dict[str, Any]]:
     """
     Busca na base de conhecimento por trechos relevantes e retorna os dados brutos.
@@ -31,18 +29,17 @@ def search_knowledge_base(query: str, top_k: int = 5) -> List[Dict[str, Any]]:
     if not query.strip() or _collection is None or _model is None:
         return []
 
-    # 1. Converter a query em um embedding
+    # Converter a query em um embedding
     query_embedding = _model.encode([query]).tolist()
 
-    # 2. Realizar a busca na coleção do ChromaDB
+    # Realizar a busca na coleção do ChromaDB
     results = _collection.query(
         query_embeddings=query_embedding,
         n_results=top_k,
         include=["documents", "metadatas"]
     )
 
-    # 3. Estruturar e retornar os resultados brutos
-    # A responsabilidade de formatar a saída agora é da camada que chama esta função.
+    # Estruturar e retornar os resultados não-processados
     if not results or "documents" not in results:
         return []
 
